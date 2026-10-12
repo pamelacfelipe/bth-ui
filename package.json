@@ -1,6 +1,6 @@
 {
   "name": "bth-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web components built with Stencil.js",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -13,10 +13,16 @@
       "import": "./dist/bth-ui/bth-ui.esm.js",
       "require": "./dist/bth-ui/bth-ui.cjs.js"
     },
+    "./docs.json": {
+      "import": "./docs/docs.json"
+    },
     "./loader": {
       "import": "./loader/index.js",
       "require": "./loader/index.cjs",
       "types": "./loader/index.d.ts"
+    },
+    "./tokens.json": {
+      "import": "./docs/tokens.json"
     }
   },
   "repository": {
@@ -25,14 +31,16 @@
   },
   "files": [
     "dist/",
+    "docs/",
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build",
+    "build": "stencil build && node scripts/build-tokens.mjs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil-test --prod",
     "test:watch": "stencil-test --prod --watch",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "check:docs": "node scripts/check-docs.mjs"
   },
   "devDependencies": {
     "@stencil/core": "^4.27.1 || ^5.0.0-0",
@@ -42,6 +50,7 @@
     "@vitest/browser-playwright": "^4.0.0",
     "clsx": "^2.1.1",
     "playwright": "^1.52.0",
+    "sass-embedded": "^1.105.1",
     "vitest": "^4.0.0"
   },
   "license": "MIT"

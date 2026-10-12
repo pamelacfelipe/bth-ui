@@ -43,6 +43,8 @@ jobs:
 
       - run: npm run build
 
+      - run: npm run check:docs
+
       # Pre-releases go to the "next" dist-tag, so they don't become the default install
       - run: npm publish --access public --tag "$DIST_TAG"
         env:

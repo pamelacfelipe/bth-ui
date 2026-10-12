@@ -27,13 +27,16 @@ jobs:
 
       - run: npm run build
 
-      # Fails when the package would be published without its build output
+      # Fails when a component is missing the documentation that bth-ui-mcp reads
+      - run: npm run check:docs
+
+      # Fails when the package would be published without its build output or its documentation
       - name: Check package contents
         run: |
           npm pack --dry-run --json > pack.json
           node -e "
             const files = require('./pack.json')[0].files.map(f => f.path);
-            for (const required of ['dist/index.js', 'dist/types/index.d.ts', 'loader/index.js']) {
+            for (const required of ['dist/index.js', 'dist/types/index.d.ts', 'loader/index.js', 'docs/docs.json', 'docs/tokens.json']) {
               if (!files.includes(required)) throw new Error('Missing from package: ' + required);
             }
             console.log(files.length + ' files in the package');
