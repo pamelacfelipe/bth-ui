@@ -1,0 +1,83 @@
+@use '../../tokens' as *;
+
+// Colors
+$alert-colors: ('default', 'danger', 'success', 'warning', 'info');
+
+:host {
+  display: block;
+
+  @include component-color('alert', 'default');
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+@include component-colors('alert', $alert-colors, $attr: 'variant');
+
+// Alerts keep the neutral text color over a tint of their own color
+:host([variant]) {
+  --bth-alert-bg-color: #{bth-tint(var(--bth-alert-accent-color), $tint-subtle)};
+  --bth-alert-text-color: #{$text-color};
+}
+
+:host([variant='default']) {
+  --bth-alert-bg-color: transparent;
+}
+
+.alert {
+  display: grid;
+  grid-template-columns: 0 1fr auto;
+  align-items: start;
+  box-sizing: border-box;
+  padding: $spacing-4x;
+  border: 1px solid var(--bth-alert-border-color);
+  border-radius: $radius-md;
+  background-color: var(--bth-alert-bg-color);
+  color: var(--bth-alert-accent-color);
+  font-family: $font-family;
+}
+
+.alert--has-icon {
+  grid-template-columns: auto 1fr auto;
+}
+
+::slotted([slot='icon']) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  align-items: flex-start;
+  margin-right: $spacing-3x;
+  color: currentColor;
+}
+
+.alert-dismiss {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $spacing-6x;
+  height: $spacing-6x;
+  margin-left: $spacing-3x;
+  padding: 0;
+  border: 0;
+  border-radius: $radius-xs;
+  background-color: transparent;
+  color: var(--bth-alert-text-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: bth-tint(var(--bth-alert-accent-color), $tint-hover);
+  }
+
+  &:active {
+    background-color: bth-tint(var(--bth-alert-accent-color), $tint-active);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bth-alert-accent-color);
+    outline-offset: 2px;
+  }
+}

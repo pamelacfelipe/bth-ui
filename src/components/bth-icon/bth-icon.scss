@@ -1,0 +1,13 @@
+@use '../../tokens' as *;
+
+:host {
+  display: block;
+}
+// We can't target the host when we don't have Shadom DOM enabled
+// :host {}
+
+bth-icon {
+  display: inline-block;
+  width: $icon-size;
+  height: $icon-size;
+}

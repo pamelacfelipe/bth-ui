@@ -1,0 +1,22 @@
+//**********************
+//******* STATES *******
+//**********************
+
+// Opacity of filled elements on each interaction state
+$opacity-hover: var(--bth-opacity-hover, 0.88);
+$opacity-active: var(--bth-opacity-active, 0.76);
+$opacity-disabled: var(--bth-opacity-disabled, 0.5);
+
+// Amount of a color mixed into a transparent background
+$tint-subtle: var(--bth-tint-subtle, 10%);
+$tint-hover: var(--bth-tint-hover, 10%);
+$tint-active: var(--bth-tint-active, 18%);
+
+/// Gets a translucent version of a color, to be used as background.
+///
+/// @example
+///   bth-tint(var(--bth-button-accent-color), $tint-hover)
+///   => color-mix(in srgb, var(--bth-button-accent-color) var(--bth-tint-hover, 10%), transparent)
+@function bth-tint($color, $amount: $tint-subtle) {
+  @return color-mix(in srgb, #{$color} #{$amount}, transparent);
+}

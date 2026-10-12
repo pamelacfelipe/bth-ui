@@ -1,0 +1,10 @@
+//**********************
+//******* SIZING *******
+//**********************
+
+// Height of interactive controls, so they line up when placed side by side
+$control-height-xs: var(--bth-control-height-xs, 24px);
+$control-height-sm: var(--bth-control-height-sm, 32px);
+$control-height-md: var(--bth-control-height-md, 40px);
+$control-height-lg: var(--bth-control-height-lg, 48px);
+$control-height-xl: var(--bth-control-height-xl, 56px);

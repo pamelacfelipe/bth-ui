@@ -5,64 +5,576 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AlertVariant } from "./components/bth-alert/bth-alert.types";
+import { BadgeColor, BadgeSize, BadgeVariant } from "./components/bth-badge/bth-badge.types";
+import { ButtonColor, ButtonSize, ButtonVariant } from "./components/bth-button/bth-button.types";
+export { AlertVariant } from "./components/bth-alert/bth-alert.types";
+export { BadgeColor, BadgeSize, BadgeVariant } from "./components/bth-badge/bth-badge.types";
+export { ButtonColor, ButtonSize, ButtonVariant } from "./components/bth-button/bth-button.types";
 export namespace Components {
-    interface MyComponent {
+    /**
+     * Alerta para destacar uma mensagem importante dentro do conteúdo da página.
+     * @usage-when Para comunicar o resultado de uma ação, como sucesso ou erro ao salvar.
+     * @usage-when Para avisar sobre um estado ou uma condição que afeta o que a pessoa está fazendo.
+     * @usage-avoid Para mensagens temporárias que somem sozinhas; use uma notificação do tipo toast.
+     * @usage-avoid Para validação de um campo específico; mostre a mensagem junto ao campo.
+     * @category feedback
+     * @related bth-alert-title, bth-alert-description, bth-icon
+     * @example ```html
+     * <bth-alert variant="info" dismissible>
+     *   <bth-icon slot="icon" name="info"></bth-icon>
+     *   <bth-alert-title>Informação</bth-alert-title>
+     *   <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * </bth-alert>
+     * ```
+     * @status beta
+     */
+    interface BthAlert {
         /**
-          * The first name
+          * Exibe um botão que permite fechar o alerta.
+          * @default false
          */
-        "first": string;
+        "dismissible": boolean;
         /**
-          * The last name
+          * Variante de cor, de acordo com o tipo da mensagem.
+          * @default 'default'
          */
-        "last": string;
+        "variant": AlertVariant;
+    }
+    /**
+     * Descrição de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para detalhar a mensagem ou orientar o próximo passo.
+     * @usage-avoid Fora de um `bth-alert`; para outros textos, use um parágrafo comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-title
+     * @example ```html
+     * <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * ```
+     * @status beta
+     */
+    interface BthAlertDescription {
+    }
+    /**
+     * Título de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para resumir a mensagem em poucas palavras.
+     * @usage-avoid Fora de um `bth-alert`; para outros títulos, use um elemento de título comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-description
+     * @example ```html
+     * <bth-alert-title>Informação</bth-alert-title>
+     * ```
+     * @status beta
+     */
+    interface BthAlertTitle {
+    }
+    /**
+     * Etiqueta curta para destacar um status, uma categoria ou uma contagem.
+     * @usage-when Para indicar o status de um item, como "Ativo", "Pendente" ou "Novo".
+     * @usage-when Para rotular ou categorizar um conteúdo, inclusive ao lado de um título.
+     * @usage-avoid Para ações clicáveis; use um `bth-button`.
+     * @usage-avoid Para mensagens longas ou que exigem atenção imediata; use um `bth-alert`.
+     * @category dados
+     * @related bth-button, bth-alert, bth-icon
+     * @example ```html
+     * <bth-badge variant="solid" color="primary">solid</bth-badge>
+     * <bth-badge variant="subtle" color="primary">subtle</bth-badge>
+     * <bth-badge variant="outline" color="primary">outline</bth-badge>
+     * ```
+     * @status beta
+     */
+    interface BthBadge {
         /**
-          * The middle name
+          * Cor do badge.
+          * @default 'default'
          */
-        "middle": string;
+        "color": BadgeColor;
+        /**
+          * Tamanho do badge, proporcional ao tamanho da fonte do contexto onde ele está.
+          * @default 'md'
+         */
+        "size": BadgeSize;
+        /**
+          * Estilo visual: `solid` é preenchido, `subtle` tem um fundo suave e `outline` tem só a borda.
+          * @default 'solid'
+         */
+        "variant": BadgeVariant;
+    }
+    /**
+     * Botão para disparar ações e enviar formulários.
+     * @usage-when Para disparar uma ação na página atual, como salvar, confirmar ou abrir um diálogo.
+     * @usage-when Para enviar ou limpar um formulário, com `type="submit"` ou `type="reset"`.
+     * @usage-avoid Para navegar entre páginas; use um link.
+     * @usage-avoid Com mais de um botão de destaque na mesma área; reserve a cor `primary` para a ação principal.
+     * @category formulário
+     * @related bth-icon, bth-alert
+     * @example ```html
+     * <bth-button color="primary">Salvar</bth-button>
+     * <bth-button variant="outline" color="danger" size="sm">Excluir</bth-button>
+     * ```
+     * @status beta
+     */
+    interface BthButton {
+        /**
+          * Cor do botão.
+          * @default 'default'
+         */
+        "color": ButtonColor;
+        /**
+          * Desabilita o botão e impede a interação.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Tamanho do botão.
+          * @default 'md'
+         */
+        "size": ButtonSize;
+        /**
+          * Tipo do botão nativo. `submit` e `reset` atuam sobre o formulário pai.
+          * @default 'button'
+         */
+        "type": 'submit' | 'reset' | 'button';
+        /**
+          * Estilo visual: `default` é preenchido, `outline` tem só a borda e `ghost` tem só o texto.
+          * @default 'default'
+         */
+        "variant": ButtonVariant;
+    }
+    /**
+     * Ícone da fonte Material Symbols Outlined.
+     * @usage-when Para reforçar visualmente o significado de um texto, como o título de um alerta ou o rótulo de um botão.
+     * @usage-when Para preencher o slot `icon` de outros componentes.
+     * @usage-avoid Como único conteúdo de um controle interativo sem um rótulo acessível.
+     * @usage-avoid Para ilustrações ou imagens decorativas grandes; use uma imagem.
+     * @category mídia
+     * @related bth-alert, bth-button
+     * @example ```html
+     * <bth-icon name="info"></bth-icon>
+     * ```
+     * @status beta
+     */
+    interface BthIcon {
+        /**
+          * Nome do ícone na fonte Material Symbols Outlined, como `info` ou `check_circle`.
+         */
+        "name"?: string;
     }
 }
+export interface BthAlertCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLBthAlertElement;
+}
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLBthAlertElementEventMap {
+        "bthDismiss": void;
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    /**
+     * Alerta para destacar uma mensagem importante dentro do conteúdo da página.
+     * @usage-when Para comunicar o resultado de uma ação, como sucesso ou erro ao salvar.
+     * @usage-when Para avisar sobre um estado ou uma condição que afeta o que a pessoa está fazendo.
+     * @usage-avoid Para mensagens temporárias que somem sozinhas; use uma notificação do tipo toast.
+     * @usage-avoid Para validação de um campo específico; mostre a mensagem junto ao campo.
+     * @category feedback
+     * @related bth-alert-title, bth-alert-description, bth-icon
+     * @example ```html
+     * <bth-alert variant="info" dismissible>
+     *   <bth-icon slot="icon" name="info"></bth-icon>
+     *   <bth-alert-title>Informação</bth-alert-title>
+     *   <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * </bth-alert>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthAlertElement extends Components.BthAlert, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLBthAlertElementEventMap>(type: K, listener: (this: HTMLBthAlertElement, ev: BthAlertCustomEvent<HTMLBthAlertElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLBthAlertElementEventMap>(type: K, listener: (this: HTMLBthAlertElement, ev: BthAlertCustomEvent<HTMLBthAlertElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLBthAlertElement: {
+        prototype: HTMLBthAlertElement;
+        new (): HTMLBthAlertElement;
+    };
+    /**
+     * Descrição de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para detalhar a mensagem ou orientar o próximo passo.
+     * @usage-avoid Fora de um `bth-alert`; para outros textos, use um parágrafo comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-title
+     * @example ```html
+     * <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthAlertDescriptionElement extends Components.BthAlertDescription, HTMLStencilElement {
+    }
+    var HTMLBthAlertDescriptionElement: {
+        prototype: HTMLBthAlertDescriptionElement;
+        new (): HTMLBthAlertDescriptionElement;
+    };
+    /**
+     * Título de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para resumir a mensagem em poucas palavras.
+     * @usage-avoid Fora de um `bth-alert`; para outros títulos, use um elemento de título comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-description
+     * @example ```html
+     * <bth-alert-title>Informação</bth-alert-title>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthAlertTitleElement extends Components.BthAlertTitle, HTMLStencilElement {
+    }
+    var HTMLBthAlertTitleElement: {
+        prototype: HTMLBthAlertTitleElement;
+        new (): HTMLBthAlertTitleElement;
+    };
+    /**
+     * Etiqueta curta para destacar um status, uma categoria ou uma contagem.
+     * @usage-when Para indicar o status de um item, como "Ativo", "Pendente" ou "Novo".
+     * @usage-when Para rotular ou categorizar um conteúdo, inclusive ao lado de um título.
+     * @usage-avoid Para ações clicáveis; use um `bth-button`.
+     * @usage-avoid Para mensagens longas ou que exigem atenção imediata; use um `bth-alert`.
+     * @category dados
+     * @related bth-button, bth-alert, bth-icon
+     * @example ```html
+     * <bth-badge variant="solid" color="primary">solid</bth-badge>
+     * <bth-badge variant="subtle" color="primary">subtle</bth-badge>
+     * <bth-badge variant="outline" color="primary">outline</bth-badge>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthBadgeElement extends Components.BthBadge, HTMLStencilElement {
+    }
+    var HTMLBthBadgeElement: {
+        prototype: HTMLBthBadgeElement;
+        new (): HTMLBthBadgeElement;
+    };
+    /**
+     * Botão para disparar ações e enviar formulários.
+     * @usage-when Para disparar uma ação na página atual, como salvar, confirmar ou abrir um diálogo.
+     * @usage-when Para enviar ou limpar um formulário, com `type="submit"` ou `type="reset"`.
+     * @usage-avoid Para navegar entre páginas; use um link.
+     * @usage-avoid Com mais de um botão de destaque na mesma área; reserve a cor `primary` para a ação principal.
+     * @category formulário
+     * @related bth-icon, bth-alert
+     * @example ```html
+     * <bth-button color="primary">Salvar</bth-button>
+     * <bth-button variant="outline" color="danger" size="sm">Excluir</bth-button>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthButtonElement extends Components.BthButton, HTMLStencilElement {
+    }
+    var HTMLBthButtonElement: {
+        prototype: HTMLBthButtonElement;
+        new (): HTMLBthButtonElement;
+    };
+    /**
+     * Ícone da fonte Material Symbols Outlined.
+     * @usage-when Para reforçar visualmente o significado de um texto, como o título de um alerta ou o rótulo de um botão.
+     * @usage-when Para preencher o slot `icon` de outros componentes.
+     * @usage-avoid Como único conteúdo de um controle interativo sem um rótulo acessível.
+     * @usage-avoid Para ilustrações ou imagens decorativas grandes; use uma imagem.
+     * @category mídia
+     * @related bth-alert, bth-button
+     * @example ```html
+     * <bth-icon name="info"></bth-icon>
+     * ```
+     * @status beta
+     */
+    interface HTMLBthIconElement extends Components.BthIcon, HTMLStencilElement {
+    }
+    var HTMLBthIconElement: {
+        prototype: HTMLBthIconElement;
+        new (): HTMLBthIconElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "bth-alert": HTMLBthAlertElement;
+        "bth-alert-description": HTMLBthAlertDescriptionElement;
+        "bth-alert-title": HTMLBthAlertTitleElement;
+        "bth-badge": HTMLBthBadgeElement;
+        "bth-button": HTMLBthButtonElement;
+        "bth-icon": HTMLBthIconElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    /**
+     * Alerta para destacar uma mensagem importante dentro do conteúdo da página.
+     * @usage-when Para comunicar o resultado de uma ação, como sucesso ou erro ao salvar.
+     * @usage-when Para avisar sobre um estado ou uma condição que afeta o que a pessoa está fazendo.
+     * @usage-avoid Para mensagens temporárias que somem sozinhas; use uma notificação do tipo toast.
+     * @usage-avoid Para validação de um campo específico; mostre a mensagem junto ao campo.
+     * @category feedback
+     * @related bth-alert-title, bth-alert-description, bth-icon
+     * @example ```html
+     * <bth-alert variant="info" dismissible>
+     *   <bth-icon slot="icon" name="info"></bth-icon>
+     *   <bth-alert-title>Informação</bth-alert-title>
+     *   <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * </bth-alert>
+     * ```
+     * @status beta
+     */
+    interface BthAlert {
         /**
-          * The first name
+          * Exibe um botão que permite fechar o alerta.
+          * @default false
          */
-        "first"?: string;
+        "dismissible"?: boolean;
         /**
-          * The last name
+          * Emitido quando o alerta é fechado pelo botão de fechar.
          */
-        "last"?: string;
+        "onBthDismiss"?: (event: BthAlertCustomEvent<void>) => void;
         /**
-          * The middle name
+          * Variante de cor, de acordo com o tipo da mensagem.
+          * @default 'default'
          */
-        "middle"?: string;
+        "variant"?: AlertVariant;
+    }
+    /**
+     * Descrição de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para detalhar a mensagem ou orientar o próximo passo.
+     * @usage-avoid Fora de um `bth-alert`; para outros textos, use um parágrafo comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-title
+     * @example ```html
+     * <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+     * ```
+     * @status beta
+     */
+    interface BthAlertDescription {
+    }
+    /**
+     * Título de um `bth-alert`.
+     * @usage-when Dentro de um `bth-alert`, para resumir a mensagem em poucas palavras.
+     * @usage-avoid Fora de um `bth-alert`; para outros títulos, use um elemento de título comum.
+     * @category feedback
+     * @related bth-alert, bth-alert-description
+     * @example ```html
+     * <bth-alert-title>Informação</bth-alert-title>
+     * ```
+     * @status beta
+     */
+    interface BthAlertTitle {
+    }
+    /**
+     * Etiqueta curta para destacar um status, uma categoria ou uma contagem.
+     * @usage-when Para indicar o status de um item, como "Ativo", "Pendente" ou "Novo".
+     * @usage-when Para rotular ou categorizar um conteúdo, inclusive ao lado de um título.
+     * @usage-avoid Para ações clicáveis; use um `bth-button`.
+     * @usage-avoid Para mensagens longas ou que exigem atenção imediata; use um `bth-alert`.
+     * @category dados
+     * @related bth-button, bth-alert, bth-icon
+     * @example ```html
+     * <bth-badge variant="solid" color="primary">solid</bth-badge>
+     * <bth-badge variant="subtle" color="primary">subtle</bth-badge>
+     * <bth-badge variant="outline" color="primary">outline</bth-badge>
+     * ```
+     * @status beta
+     */
+    interface BthBadge {
+        /**
+          * Cor do badge.
+          * @default 'default'
+         */
+        "color"?: BadgeColor;
+        /**
+          * Tamanho do badge, proporcional ao tamanho da fonte do contexto onde ele está.
+          * @default 'md'
+         */
+        "size"?: BadgeSize;
+        /**
+          * Estilo visual: `solid` é preenchido, `subtle` tem um fundo suave e `outline` tem só a borda.
+          * @default 'solid'
+         */
+        "variant"?: BadgeVariant;
+    }
+    /**
+     * Botão para disparar ações e enviar formulários.
+     * @usage-when Para disparar uma ação na página atual, como salvar, confirmar ou abrir um diálogo.
+     * @usage-when Para enviar ou limpar um formulário, com `type="submit"` ou `type="reset"`.
+     * @usage-avoid Para navegar entre páginas; use um link.
+     * @usage-avoid Com mais de um botão de destaque na mesma área; reserve a cor `primary` para a ação principal.
+     * @category formulário
+     * @related bth-icon, bth-alert
+     * @example ```html
+     * <bth-button color="primary">Salvar</bth-button>
+     * <bth-button variant="outline" color="danger" size="sm">Excluir</bth-button>
+     * ```
+     * @status beta
+     */
+    interface BthButton {
+        /**
+          * Cor do botão.
+          * @default 'default'
+         */
+        "color"?: ButtonColor;
+        /**
+          * Desabilita o botão e impede a interação.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Tamanho do botão.
+          * @default 'md'
+         */
+        "size"?: ButtonSize;
+        /**
+          * Tipo do botão nativo. `submit` e `reset` atuam sobre o formulário pai.
+          * @default 'button'
+         */
+        "type"?: 'submit' | 'reset' | 'button';
+        /**
+          * Estilo visual: `default` é preenchido, `outline` tem só a borda e `ghost` tem só o texto.
+          * @default 'default'
+         */
+        "variant"?: ButtonVariant;
+    }
+    /**
+     * Ícone da fonte Material Symbols Outlined.
+     * @usage-when Para reforçar visualmente o significado de um texto, como o título de um alerta ou o rótulo de um botão.
+     * @usage-when Para preencher o slot `icon` de outros componentes.
+     * @usage-avoid Como único conteúdo de um controle interativo sem um rótulo acessível.
+     * @usage-avoid Para ilustrações ou imagens decorativas grandes; use uma imagem.
+     * @category mídia
+     * @related bth-alert, bth-button
+     * @example ```html
+     * <bth-icon name="info"></bth-icon>
+     * ```
+     * @status beta
+     */
+    interface BthIcon {
+        /**
+          * Nome do ícone na fonte Material Symbols Outlined, como `info` ou `check_circle`.
+         */
+        "name"?: string;
     }
 
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
+    interface BthAlertAttributes {
+        "variant": AlertVariant;
+        "dismissible": boolean;
+    }
+    interface BthBadgeAttributes {
+        "variant": BadgeVariant;
+        "color": BadgeColor;
+        "size": BadgeSize;
+    }
+    interface BthButtonAttributes {
+        "variant": ButtonVariant;
+        "disabled": boolean;
+        "size": ButtonSize;
+        "color": ButtonColor;
+        "type": 'submit' | 'reset' | 'button';
+    }
+    interface BthIconAttributes {
+        "name": string;
     }
 
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "bth-alert": Omit<BthAlert, keyof BthAlertAttributes> & { [K in keyof BthAlert & keyof BthAlertAttributes]?: BthAlert[K] } & { [K in keyof BthAlert & keyof BthAlertAttributes as `attr:${K}`]?: BthAlertAttributes[K] } & { [K in keyof BthAlert & keyof BthAlertAttributes as `prop:${K}`]?: BthAlert[K] };
+        "bth-alert-description": BthAlertDescription;
+        "bth-alert-title": BthAlertTitle;
+        "bth-badge": Omit<BthBadge, keyof BthBadgeAttributes> & { [K in keyof BthBadge & keyof BthBadgeAttributes]?: BthBadge[K] } & { [K in keyof BthBadge & keyof BthBadgeAttributes as `attr:${K}`]?: BthBadgeAttributes[K] } & { [K in keyof BthBadge & keyof BthBadgeAttributes as `prop:${K}`]?: BthBadge[K] };
+        "bth-button": Omit<BthButton, keyof BthButtonAttributes> & { [K in keyof BthButton & keyof BthButtonAttributes]?: BthButton[K] } & { [K in keyof BthButton & keyof BthButtonAttributes as `attr:${K}`]?: BthButtonAttributes[K] } & { [K in keyof BthButton & keyof BthButtonAttributes as `prop:${K}`]?: BthButton[K] };
+        "bth-icon": Omit<BthIcon, keyof BthIconAttributes> & { [K in keyof BthIcon & keyof BthIconAttributes]?: BthIcon[K] } & { [K in keyof BthIcon & keyof BthIconAttributes as `attr:${K}`]?: BthIconAttributes[K] } & { [K in keyof BthIcon & keyof BthIconAttributes as `prop:${K}`]?: BthIcon[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            /**
+             * Alerta para destacar uma mensagem importante dentro do conteúdo da página.
+             * @usage-when Para comunicar o resultado de uma ação, como sucesso ou erro ao salvar.
+             * @usage-when Para avisar sobre um estado ou uma condição que afeta o que a pessoa está fazendo.
+             * @usage-avoid Para mensagens temporárias que somem sozinhas; use uma notificação do tipo toast.
+             * @usage-avoid Para validação de um campo específico; mostre a mensagem junto ao campo.
+             * @category feedback
+             * @related bth-alert-title, bth-alert-description, bth-icon
+             * @example ```html
+             * <bth-alert variant="info" dismissible>
+             *   <bth-icon slot="icon" name="info"></bth-icon>
+             *   <bth-alert-title>Informação</bth-alert-title>
+             *   <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+             * </bth-alert>
+             * ```
+             * @status beta
+             */
+            "bth-alert": LocalJSX.IntrinsicElements["bth-alert"] & JSXBase.HTMLAttributes<HTMLBthAlertElement>;
+            /**
+             * Descrição de um `bth-alert`.
+             * @usage-when Dentro de um `bth-alert`, para detalhar a mensagem ou orientar o próximo passo.
+             * @usage-avoid Fora de um `bth-alert`; para outros textos, use um parágrafo comum.
+             * @category feedback
+             * @related bth-alert, bth-alert-title
+             * @example ```html
+             * <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+             * ```
+             * @status beta
+             */
+            "bth-alert-description": LocalJSX.IntrinsicElements["bth-alert-description"] & JSXBase.HTMLAttributes<HTMLBthAlertDescriptionElement>;
+            /**
+             * Título de um `bth-alert`.
+             * @usage-when Dentro de um `bth-alert`, para resumir a mensagem em poucas palavras.
+             * @usage-avoid Fora de um `bth-alert`; para outros títulos, use um elemento de título comum.
+             * @category feedback
+             * @related bth-alert, bth-alert-description
+             * @example ```html
+             * <bth-alert-title>Informação</bth-alert-title>
+             * ```
+             * @status beta
+             */
+            "bth-alert-title": LocalJSX.IntrinsicElements["bth-alert-title"] & JSXBase.HTMLAttributes<HTMLBthAlertTitleElement>;
+            /**
+             * Etiqueta curta para destacar um status, uma categoria ou uma contagem.
+             * @usage-when Para indicar o status de um item, como "Ativo", "Pendente" ou "Novo".
+             * @usage-when Para rotular ou categorizar um conteúdo, inclusive ao lado de um título.
+             * @usage-avoid Para ações clicáveis; use um `bth-button`.
+             * @usage-avoid Para mensagens longas ou que exigem atenção imediata; use um `bth-alert`.
+             * @category dados
+             * @related bth-button, bth-alert, bth-icon
+             * @example ```html
+             * <bth-badge variant="solid" color="primary">solid</bth-badge>
+             * <bth-badge variant="subtle" color="primary">subtle</bth-badge>
+             * <bth-badge variant="outline" color="primary">outline</bth-badge>
+             * ```
+             * @status beta
+             */
+            "bth-badge": LocalJSX.IntrinsicElements["bth-badge"] & JSXBase.HTMLAttributes<HTMLBthBadgeElement>;
+            /**
+             * Botão para disparar ações e enviar formulários.
+             * @usage-when Para disparar uma ação na página atual, como salvar, confirmar ou abrir um diálogo.
+             * @usage-when Para enviar ou limpar um formulário, com `type="submit"` ou `type="reset"`.
+             * @usage-avoid Para navegar entre páginas; use um link.
+             * @usage-avoid Com mais de um botão de destaque na mesma área; reserve a cor `primary` para a ação principal.
+             * @category formulário
+             * @related bth-icon, bth-alert
+             * @example ```html
+             * <bth-button color="primary">Salvar</bth-button>
+             * <bth-button variant="outline" color="danger" size="sm">Excluir</bth-button>
+             * ```
+             * @status beta
+             */
+            "bth-button": LocalJSX.IntrinsicElements["bth-button"] & JSXBase.HTMLAttributes<HTMLBthButtonElement>;
+            /**
+             * Ícone da fonte Material Symbols Outlined.
+             * @usage-when Para reforçar visualmente o significado de um texto, como o título de um alerta ou o rótulo de um botão.
+             * @usage-when Para preencher o slot `icon` de outros componentes.
+             * @usage-avoid Como único conteúdo de um controle interativo sem um rótulo acessível.
+             * @usage-avoid Para ilustrações ou imagens decorativas grandes; use uma imagem.
+             * @category mídia
+             * @related bth-alert, bth-button
+             * @example ```html
+             * <bth-icon name="info"></bth-icon>
+             * ```
+             * @status beta
+             */
+            "bth-icon": LocalJSX.IntrinsicElements["bth-icon"] & JSXBase.HTMLAttributes<HTMLBthIconElement>;
         }
     }
 }

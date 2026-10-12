@@ -1,0 +1,137 @@
+@use 'sass:map';
+@use '../../tokens' as *;
+
+// Colors
+$button-colors: ('default', 'primary', 'success', 'danger', 'warning', 'info');
+
+// Sizes
+$sizes: (
+  'xs': (
+    'height': $control-height-xs,
+    'padding': 0 $spacing-2x,
+    'font-size': $font-size-xs,
+    'radius': $radius-xs,
+  ),
+  'sm': (
+    'height': $control-height-sm,
+    'padding': 0 $spacing-3x,
+    'font-size': $font-size-sm,
+    'radius': $radius-sm,
+  ),
+  'md': (
+    'height': $control-height-md,
+    'padding': 0 $spacing-5x,
+    'font-size': $font-size-md,
+    'radius': $radius-md,
+  ),
+  'lg': (
+    'height': $control-height-lg,
+    'padding': 0 $spacing-6x,
+    'font-size': $font-size-lg,
+    'radius': $radius-lg,
+  ),
+  'xl': (
+    'height': $control-height-xl,
+    'padding': 0 $spacing-8x,
+    'font-size': $font-size-xl,
+    'radius': $radius-xl,
+  ),
+);
+
+@mixin size($name) {
+  $size: map.get($sizes, $name);
+
+  --bth-button-height: #{map.get($size, 'height')};
+  --bth-button-padding: #{map.get($size, 'padding')};
+  --bth-button-font-size: #{map.get($size, 'font-size')};
+  --bth-button-radius: #{map.get($size, 'radius')};
+}
+
+:host {
+  display: inline-block;
+  vertical-align: middle;
+
+  @include component-color('button', 'default');
+  @include size('md');
+}
+
+@include component-colors('button', $button-colors);
+
+@each $name, $size in $sizes {
+  :host([size='#{$name}']) {
+    @include size($name);
+  }
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2x;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--bth-button-height);
+  padding: var(--bth-button-padding);
+  border: 1px solid var(--bth-button-border-color);
+  border-radius: var(--bth-button-radius);
+  background-color: var(--bth-button-bg-color);
+  color: var(--bth-button-text-color);
+  font-family: $font-family;
+  font-size: var(--bth-button-font-size);
+  font-weight: $font-weight-medium;
+  line-height: $line-height-none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+
+  &:hover {
+    opacity: $opacity-hover;
+  }
+
+  &:active {
+    opacity: $opacity-active;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bth-button-accent-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: $opacity-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// Variants
+:host([variant='outline']),
+:host([variant='ghost']) {
+  --bth-button-bg-color: transparent;
+  --bth-button-text-color: var(--bth-button-accent-color);
+}
+
+:host([variant='ghost']) {
+  --bth-button-border-color: transparent;
+}
+
+// Transparent buttons get a tint of their own color instead of fading out
+:host([variant='outline']),
+:host([variant='ghost']),
+:host([color='default']),
+:host(:not([color])) {
+  .btn:not(:disabled) {
+    &:hover {
+      opacity: 1;
+      background-color: bth-tint(var(--bth-button-accent-color), $tint-hover);
+    }
+
+    &:active {
+      opacity: 1;
+      background-color: bth-tint(var(--bth-button-accent-color), $tint-active);
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@use 'colors' as *;
+
+/// Sets the color custom properties of a component for a color name.
+/// `default` is the neutral color; any other name must exist in the palette.
+///
+/// @example
+///   @include component-color(button, primary)
+///   => --bth-button-bg-color, --bth-button-text-color, --bth-button-border-color, --bth-button-accent-color
+@mixin component-color($component, $name) {
+  @if $name == 'default' {
+    --bth-#{$component}-bg-color: transparent;
+    --bth-#{$component}-text-color: #{$text-color};
+    --bth-#{$component}-border-color: #{$border-color};
+    --bth-#{$component}-accent-color: #{$text-color};
+  } @else {
+    --bth-#{$component}-bg-color: #{bth-color($name)};
+    --bth-#{$component}-text-color: #{bth-color($name, contrast)};
+    --bth-#{$component}-border-color: #{bth-color($name)};
+    --bth-#{$component}-accent-color: #{bth-color($name)};
+  }
+}
+
+/// Generates one host rule per color name, matched by the given host attribute.
+///
+/// @example
+///   @include component-colors(button, (default, primary))
+///   @include component-colors(alert, (default, danger), $attr: variant)
+@mixin component-colors($component, $names, $attr: 'color') {
+  @each $name in $names {
+    :host([#{$attr}='#{$name}']) {
+      @include component-color($component, $name);
+    }
+  }
+}

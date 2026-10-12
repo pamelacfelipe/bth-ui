@@ -1,0 +1,26 @@
+//**********************
+//***** TYPOGRAPHY *****
+//**********************
+
+// Font family
+$font-family: var(--bth-font-family, 'Geist', sans-serif);
+
+// Font sizes
+$font-size-xs: var(--bth-font-size-xs, 0.75rem); // 12px
+$font-size-sm: var(--bth-font-size-sm, 0.8125rem); // 13px
+$font-size-md: var(--bth-font-size-md, 0.875rem); // 14px
+$font-size-lg: var(--bth-font-size-lg, 1rem); // 16px
+$font-size-xl: var(--bth-font-size-xl, 1.125rem); // 18px
+
+// Font weights
+$font-weight-regular: var(--bth-font-weight-regular, 400);
+$font-weight-medium: var(--bth-font-weight-medium, 500);
+$font-weight-semibold: var(--bth-font-weight-semibold, 600);
+
+// Line heights
+$line-height-none: var(--bth-line-height-none, 1);
+$line-height-tight: var(--bth-line-height-tight, 1.2);
+$line-height-normal: var(--bth-line-height-normal, 1.45);
+
+// Icon size
+$icon-size: var(--bth-icon-font-size, 24px);

@@ -5,10 +5,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
 
+    <!-- Geist font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900" rel="stylesheet">
+
+    <!-- Material Symbols Outlined font -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <!-- Build components -->
     <script type="module" src="/build/bth-ui.esm.js"></script>
     <script nomodule src="/build/bth-ui.js"></script>
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 24px;
+      }
+
+      h2 {
+        font-size: 14px;
+        margin: 24px 0 8px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 640px;
+      }
+    </style>
   </head>
   <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+    <h2>Default</h2>
+    <div class="row">
+      <bth-button>Default</bth-button>
+      <bth-button color="primary">Primary</bth-button>
+      <bth-button color="success">Success</bth-button>
+      <bth-button color="danger">Danger</bth-button>
+      <bth-button color="warning">Warning</bth-button>
+      <bth-button color="info">Info</bth-button>
+    </div>
+
+    <h2>Outline</h2>
+    <div class="row">
+      <bth-button variant="outline">Default</bth-button>
+      <bth-button variant="outline" color="primary">Primary</bth-button>
+      <bth-button variant="outline" color="success">Success</bth-button>
+      <bth-button variant="outline" color="danger">Danger</bth-button>
+      <bth-button variant="outline" color="warning">Warning</bth-button>
+      <bth-button variant="outline" color="info">Info</bth-button>
+    </div>
+
+    <h2>Ghost</h2>
+    <div class="row">
+      <bth-button variant="ghost">Default</bth-button>
+      <bth-button variant="ghost" color="primary">Primary</bth-button>
+      <bth-button variant="ghost" color="success">Success</bth-button>
+      <bth-button variant="ghost" color="danger">Danger</bth-button>
+      <bth-button variant="ghost" color="warning">Warning</bth-button>
+      <bth-button variant="ghost" color="info">Info</bth-button>
+    </div>
+
+    <h2>Sizes</h2>
+    <div class="row">
+      <bth-button color="primary" size="xs">Extra small</bth-button>
+      <bth-button color="primary" size="sm">Small</bth-button>
+      <bth-button color="primary" size="md">Medium</bth-button>
+      <bth-button color="primary" size="lg">Large</bth-button>
+      <bth-button color="primary" size="xl">Extra large</bth-button>
+    </div>
+
+    <h2>Disabled</h2>
+    <div class="row">
+      <bth-button disabled>Default</bth-button>
+      <bth-button color="primary" disabled>Primary</bth-button>
+      <bth-button variant="outline" color="primary" disabled>Outline</bth-button>
+      <bth-button variant="ghost" color="primary" disabled>Ghost</bth-button>
+    </div>
+
+    <h2>Alert</h2>
+    <div class="stack">
+      <bth-alert variant="default">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Você pode adicionar componentes via CLI com npx @betha-ui/cli add.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="info">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="success">
+        <bth-icon slot="icon" name="check_circle"></bth-icon>
+        <bth-alert-title>Sucesso</bth-alert-title>
+        <bth-alert-description>As alterações foram salvas.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="warning">
+        <bth-icon slot="icon" name="warning"></bth-icon>
+        <bth-alert-title>Atenção</bth-alert-title>
+        <bth-alert-description>Sua sessão expira em 5 minutos.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="danger">
+        <bth-icon slot="icon" name="error"></bth-icon>
+        <bth-alert-title>Erro</bth-alert-title>
+        <bth-alert-description>Não foi possível concluir a operação.</bth-alert-description>
+      </bth-alert>
+    </div>
+
+    <h2>Alert dismissible</h2>
+    <div class="stack">
+      <bth-alert variant="default" dismissible>
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Você pode adicionar componentes via CLI com npx @betha-ui/cli add.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="info" dismissible>
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="success" dismissible>
+        <bth-icon slot="icon" name="check_circle"></bth-icon>
+        <bth-alert-title>Sucesso</bth-alert-title>
+        <bth-alert-description>As alterações foram salvas.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="warning" dismissible>
+        <bth-icon slot="icon" name="warning"></bth-icon>
+        <bth-alert-title>Atenção</bth-alert-title>
+        <bth-alert-description>Sua sessão expira em 5 minutos.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="danger" dismissible>
+        <bth-icon slot="icon" name="error"></bth-icon>
+        <bth-alert-title>Erro</bth-alert-title>
+        <bth-alert-description>Não foi possível concluir a operação.</bth-alert-description>
+      </bth-alert>
+    </div>
+
+    <h2>Alert without icon</h2>
+    <div class="stack">
+      <bth-alert variant="default">
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Você pode adicionar componentes via CLI com npx @betha-ui/cli add.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="info">
+        <bth-alert-title>Informação</bth-alert-title>
+        <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="success">
+        <bth-alert-title>Sucesso</bth-alert-title>
+        <bth-alert-description>As alterações foram salvas.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="warning">
+        <bth-alert-title>Atenção</bth-alert-title>
+        <bth-alert-description>Sua sessão expira em 5 minutos.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="danger">
+        <bth-alert-title>Erro</bth-alert-title>
+        <bth-alert-description>Não foi possível concluir a operação.</bth-alert-description>
+      </bth-alert>
+    </div>
+
+    <h2>Alert title only</h2>
+    <div class="stack">
+      <bth-alert variant="default">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+      </bth-alert>
+
+      <bth-alert variant="info">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-title>Informação</bth-alert-title>
+      </bth-alert>
+
+      <bth-alert variant="success">
+        <bth-icon slot="icon" name="check_circle"></bth-icon>
+        <bth-alert-title>Sucesso</bth-alert-title>
+      </bth-alert>
+
+      <bth-alert variant="warning">
+        <bth-icon slot="icon" name="warning"></bth-icon>
+        <bth-alert-title>Atenção</bth-alert-title>
+      </bth-alert>
+
+      <bth-alert variant="danger">
+        <bth-icon slot="icon" name="error"></bth-icon>
+        <bth-alert-title>Erro</bth-alert-title>
+      </bth-alert>
+    </div>
+
+    <h2>Alert description only</h2>
+    <div class="stack">
+      <bth-alert variant="default">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-description>Você pode adicionar componentes via CLI com npx @betha-ui/cli add.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="info">
+        <bth-icon slot="icon" name="info"></bth-icon>
+        <bth-alert-description>Uma nova versão está disponível.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="success">
+        <bth-icon slot="icon" name="check_circle"></bth-icon>
+        <bth-alert-description>As alterações foram salvas.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="warning">
+        <bth-icon slot="icon" name="warning"></bth-icon>
+        <bth-alert-description>Sua sessão expira em 5 minutos.</bth-alert-description>
+      </bth-alert>
+
+      <bth-alert variant="danger">
+        <bth-icon slot="icon" name="error"></bth-icon>
+        <bth-alert-description>Não foi possível concluir a operação.</bth-alert-description>
+      </bth-alert>
+    </div>
+
+    <h2>Badge solid</h2>
+    <div class="row">
+      <bth-badge variant="solid" color="default">default</bth-badge>
+      <bth-badge variant="solid" color="primary">primary</bth-badge>
+      <bth-badge variant="solid" color="success">success</bth-badge>
+      <bth-badge variant="solid" color="danger">danger</bth-badge>
+      <bth-badge variant="solid" color="warning">warning</bth-badge>
+      <bth-badge variant="solid" color="info">info</bth-badge>
+      <bth-badge variant="solid" color="accent">accent</bth-badge>
+    </div>
+
+    <h2>Badge subtle</h2>
+    <div class="row">
+      <bth-badge variant="subtle" color="default">default</bth-badge>
+      <bth-badge variant="subtle" color="primary">primary</bth-badge>
+      <bth-badge variant="subtle" color="success">success</bth-badge>
+      <bth-badge variant="subtle" color="danger">danger</bth-badge>
+      <bth-badge variant="subtle" color="warning">warning</bth-badge>
+      <bth-badge variant="subtle" color="info">info</bth-badge>
+      <bth-badge variant="subtle" color="accent">accent</bth-badge>
+    </div>
+
+    <h2>Badge outline</h2>
+    <div class="row">
+      <bth-badge variant="outline" color="default">default</bth-badge>
+      <bth-badge variant="outline" color="primary">primary</bth-badge>
+      <bth-badge variant="outline" color="success">success</bth-badge>
+      <bth-badge variant="outline" color="danger">danger</bth-badge>
+      <bth-badge variant="outline" color="warning">warning</bth-badge>
+      <bth-badge variant="outline" color="info">info</bth-badge>
+      <bth-badge variant="outline" color="accent">accent</bth-badge>
+    </div>
+
+    <h2>Badge sizes</h2>
+    <div class="row">
+      <bth-badge color="primary" size="xs">xs</bth-badge>
+      <bth-badge color="primary" size="sm">sm</bth-badge>
+      <bth-badge color="primary" size="md">md</bth-badge>
+      <bth-badge color="primary" size="lg">lg</bth-badge>
+      <bth-badge color="primary" size="xl">xl</bth-badge>
+    </div>
+
+    <h2>Badge following the context font size</h2>
+    <h1 style="font-size: 36px; margin: 0 0 8px">Título com 36px <bth-badge variant="subtle" color="primary">novo</bth-badge></h1>
+    <h3 style="font-size: 20px; margin: 0 0 8px">Título com 20px <bth-badge variant="solid" color="success">ativo</bth-badge></h3>
+    <p style="font-size: 14px; margin: 0">Texto com 14px <bth-badge variant="outline" color="danger">pendente</bth-badge></p>
   </body>
 </html>

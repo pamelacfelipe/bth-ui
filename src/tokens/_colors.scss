@@ -1,0 +1,67 @@
+@use 'sass:map';
+
+//**********************
+//*** COLOR PALETTE ****
+//**********************
+
+// Each color provides:
+// - base: main color (CSS variable: --bth-color-[name])
+// - contrast: readable color for content placed over the base (CSS variable: --bth-color-[name]-contrast)
+$primary-color: #0861ff !default;
+$success-color: #26d07c !default;
+$danger-color: #df4661 !default;
+$warning-color: #f7b500 !default;
+$info-color: #009cde !default;
+$accent-color: #7740ff !default;
+
+$colors: (
+  'primary': (
+    base: $primary-color,
+    contrast: #ffffff,
+  ),
+  'success': (
+    base: $success-color,
+    contrast: #ffffff,
+  ),
+  'danger': (
+    base: $danger-color,
+    contrast: #ffffff,
+  ),
+  'warning': (
+    base: $warning-color,
+    contrast: #ffffff,
+  ),
+  'info': (
+    base: $info-color,
+    contrast: #ffffff,
+  ),
+  'accent': (
+    base: $accent-color,
+    contrast: #ffffff,
+  ),
+);
+
+// Neutral colors
+$text-color: var(--bth-color-text, #222222);
+$border-color: var(--bth-color-border, #d1d5db);
+
+/// Gets the CSS variable of a palette color, with the default value as fallback.
+///
+/// @example
+///   bth-color(primary) => var(--bth-color-primary, #0861ff)
+///   bth-color(primary, contrast) => var(--bth-color-primary-contrast, #ffffff)
+@function bth-color($name, $variation: base) {
+  $values: map.get($colors, $name);
+
+  @if not $values {
+    @error 'Unknown color "#{$name}". Available colors: #{map.keys($colors)}';
+  }
+
+  $variable: --bth-color-#{$name};
+
+  @if $variation != base {
+    $variable: #{$variable}-#{$variation};
+  }
+
+  @return var(#{$variable}, #{map.get($values, $variation)});
+}
